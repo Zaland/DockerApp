@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  lr_api:
+    build: API/
+    volumes:
+      - ./API/src:/home/node/src
+      - ./API/build:/home/node/build
+  lr_ui:
+    build: UI/
+    volumes:
+      - ./UI/src:/home/node/src
+      - ./UI/build:/home/node/build
+    depends_on:
+      - lr_api

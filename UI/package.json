@@ -1,0 +1,11 @@
+{
+  "name": "lr_test_ui",
+  "version": "1.0.0",
+  "description": "LifeRaft Code Test's UI",
+  "main": "index.js",
+  "scripts": {
+    "start": "exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

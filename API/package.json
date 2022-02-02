@@ -1,0 +1,11 @@
+{
+  "name": "lr_test_api",
+  "version": "1.0.0",
+  "description": "LifeRaft Code Test's API",
+  "main": "index.js",
+  "scripts": {
+    "start": "exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
