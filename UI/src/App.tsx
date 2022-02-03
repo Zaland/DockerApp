@@ -1,5 +1,9 @@
-import { Form } from './Form';
+import { CssBaseline } from "@mui/material";
+import { Form } from "./Form";
 
 export const App = () => (
-  <Form />
+  <>
+    <CssBaseline />
+    <Form />
+  </>
 );

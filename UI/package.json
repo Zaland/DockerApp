@@ -10,6 +10,8 @@
   "author": "Zaland Khan",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@mui/material": "5.4.0",
     "@types/node": "16.11.22",
     "@types/react": "17.0.38",
