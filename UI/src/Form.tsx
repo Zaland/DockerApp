@@ -61,7 +61,7 @@ export const Form = () => {
             <TextField id="phoneNum" label="Phone Number" variant="outlined" fullWidth />
           </Grid>
           <Grid item xs={12}>
-            <TextField id="houseNum" label="house Number" variant="outlined" fullWidth />
+            <TextField id="houseNum" label="House Number" variant="outlined" fullWidth />
           </Grid>
           <Grid item xs={12}>
             <TextField id="streetName" label="Street Name" variant="outlined" fullWidth />
