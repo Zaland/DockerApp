@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, FormEvent } from "react";
 import {
   Box,
   Button,
@@ -107,8 +107,10 @@ export const Form = () => {
     ));
   }, []);
 
-  const handleSubmit = async () => {
-    const response = await Axios.post("/submit", {
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+
+    await Axios.post("/submit", {
       name,
       email,
       phoneNumber,
@@ -117,8 +119,19 @@ export const Form = () => {
       city,
       country,
       stateProvince,
-    });
-    console.log({ response });
+    })
+      .then((response) => {
+        console.log("success", response);
+      })
+      .catch((error) => {
+        const { data, status } = error.response;
+
+        if (status === 400) {
+          console.log(data.error.join("\n"));
+        } else {
+          console.log("Something went wrong!");
+        }
+      });
   };
 
   return (
