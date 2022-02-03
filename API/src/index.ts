@@ -20,7 +20,7 @@ app.use((_req, res, next) => {
 // endpoints
 app.post("/submit", (req, res) => {
   console.log("received", req.body);
-  res.send("yo");
+  res.send("success");
 });
 
 // start the Express server
