@@ -1,6 +1,49 @@
+import { useState, useCallback } from "react";
 import { Box, Grid, MenuItem, TextField, Typography } from "@mui/material";
+import { CountryList, ProvinceList, StateList } from "./Data";
 
 export const Form = () => {
+  const [country, setCountry] = useState("");
+
+  const renderProvinceState = useCallback(() => {
+    switch (country) {
+      case '':
+        return <TextField id="stateProvince" label="Choose country" variant="outlined" fullWidth disabled />;
+      case 'CA':
+        return (
+          <TextField id="stateProvince" label="Province" variant="outlined" select fullWidth>
+            {renderProvinceList()}
+          </TextField>
+        );
+      case 'US':
+        return (
+          <TextField id="stateProvince" label="State" variant="outlined" select fullWidth>
+            {renderStateList()}
+          </TextField>
+        );
+      default:
+        return <TextField id="stateProvince" label="Country" variant="outlined" fullWidth />;
+    }
+  }, [country]);
+
+  const renderCountryList = useCallback(() => {
+    return CountryList.map(country => (
+      <MenuItem key={country.code} value={country.code}>{country.label}</MenuItem>
+    ))
+  }, []);
+
+  const renderProvinceList = useCallback(() => {
+    return ProvinceList.map(province => (
+      <MenuItem key={province.code} value={province.code}>{province.label}</MenuItem>
+    ))
+  }, []);
+
+  const renderStateList = useCallback(() => {
+    return StateList.map(state => (
+      <MenuItem key={state.code} value={state.code}>{state.label}</MenuItem>
+    ))
+  }, []);
+
   return (
     <Grid container justifyContent="center" alignItems="center" sx={{ paddingTop: 10 }}>
       <Box sx={{ width: 800 }}>
@@ -27,13 +70,12 @@ export const Form = () => {
             <TextField id="city" label="City" variant="outlined" fullWidth />
           </Grid>
           <Grid item xs={12}>
-            <TextField id="country" label="Country" select fullWidth>
-              <MenuItem value="ca">Canada</MenuItem>
-              <MenuItem value="us">US</MenuItem>
+            <TextField id="country" label="Country" value={country} onChange={event => setCountry(event.target.value)} select fullWidth>
+              {renderCountryList()}
             </TextField>
           </Grid>
           <Grid item xs={12}>
-            <TextField id="stateProvince" label="State" variant="outlined" fullWidth />
+            {renderProvinceState()}
           </Grid>
         </Grid>
       </Box>
