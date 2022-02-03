@@ -1,8 +1,8 @@
+import "./config";
 import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
-const port = 3000; // default port to listen
 
 // middleware
 app.use(bodyParser.json());
@@ -18,16 +18,12 @@ app.use((_req, res, next) => {
 });
 
 // endpoints
-app.get("/", (_req, res) => {
-  res.send("Hello world!");
-});
-
 app.post("/submit", (req, res) => {
   console.log("received", req.body);
   res.send("yo");
 });
 
 // start the Express server
-app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+app.listen(process.env.API_PORT, () => {
+  console.log(`server started at ${process.env.API_URL}`);
 });
