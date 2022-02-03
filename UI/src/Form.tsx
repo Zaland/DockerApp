@@ -1,30 +1,73 @@
-import { useState, useCallback } from "react";
-import { Box, Grid, MenuItem, TextField, Typography } from "@mui/material";
+import { useEffect, useState, useCallback } from "react";
+import { Box, Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { CountryList, ProvinceList, StateList } from "./Data";
 
 export const Form = () => {
   const [country, setCountry] = useState("");
+  const [stateProvince, setStateProvince] = useState("");
 
-  const renderProvinceState = useCallback(() => {
+  useEffect(() => {
+    setStateProvince("");
+  }, [country]);
+
+  const renderProvinceState = () => {
     switch (country) {
       case '':
-        return <TextField id="stateProvince" label="Choose country" variant="outlined" fullWidth disabled />;
+        return (
+          <TextField
+            id="stateProvince"
+            label="Choose country"
+            variant="outlined"
+            value={stateProvince}
+            onChange={event => setStateProvince(event.target.value)}
+            fullWidth
+            disabled
+          />
+        );
       case 'CA':
         return (
-          <TextField id="stateProvince" label="Province" variant="outlined" select fullWidth>
+          <TextField
+            id="stateProvince"
+            label="Province"
+            variant="outlined"
+            value={stateProvince}
+            onChange={event => setStateProvince(event.target.value)}
+            select
+            fullWidth
+            required
+          >
             {renderProvinceList()}
           </TextField>
         );
       case 'US':
         return (
-          <TextField id="stateProvince" label="State" variant="outlined" select fullWidth>
+          <TextField
+            id="stateProvince"
+            label="State"
+            variant="outlined"
+            value={stateProvince}
+            onChange={event => setStateProvince(event.target.value)}
+            select
+            fullWidth
+            required
+          >
             {renderStateList()}
           </TextField>
         );
       default:
-        return <TextField id="stateProvince" label="Country" variant="outlined" fullWidth />;
+        return (
+          <TextField
+            id="stateProvince"
+            label="Country"
+            variant="outlined"
+            value={stateProvince}
+            onChange={event => setStateProvince(event.target.value)}
+            fullWidth
+            required
+          />
+        );
     }
-  }, [country]);
+  };
 
   const renderCountryList = useCallback(() => {
     return CountryList.map(country => (
@@ -47,37 +90,42 @@ export const Form = () => {
   return (
     <Grid container justifyContent="center" alignItems="center" sx={{ paddingTop: 10 }}>
       <Box sx={{ width: 800 }}>
-        <Grid container justifyContent="center" alignItems="center" spacing={2} sx={{ padding: 10 }}>
-          <Grid item xs={12} textAlign="center">
-            <Typography variant="h3">Form</Typography>
+        <form>
+          <Grid container justifyContent="center" alignItems="center" spacing={2} sx={{ padding: 10 }}>
+            <Grid item xs={12} textAlign="center">
+              <Typography variant="h3">Form</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="name" label="Name" variant="outlined" fullWidth required />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="email" label="Email" variant="outlined" fullWidth required />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="phoneNum" label="Phone Number" variant="outlined" fullWidth required />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="houseNum" label="House Number" variant="outlined" fullWidth required />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="streetName" label="Street Name" variant="outlined" fullWidth required />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="city" label="City" variant="outlined" fullWidth required />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField id="country" label="Country" value={country} onChange={event => setCountry(event.target.value)} select fullWidth required>
+                {renderCountryList()}
+              </TextField>
+            </Grid>
+            <Grid item xs={12}>
+              {renderProvinceState()}
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" fullWidth sx={{ paddingTop: 2, paddingBottom: 2 }}>Submit</Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField id="name" label="Name" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField id="email" label="Email" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField id="phoneNum" label="Phone Number" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField id="houseNum" label="House Number" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField id="streetName" label="Street Name" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField id="city" label="City" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField id="country" label="Country" value={country} onChange={event => setCountry(event.target.value)} select fullWidth>
-              {renderCountryList()}
-            </TextField>
-          </Grid>
-          <Grid item xs={12}>
-            {renderProvinceState()}
-          </Grid>
-        </Grid>
+        </form>
       </Box>
     </Grid>
   );
