@@ -2,6 +2,7 @@ import "./config";
 import express from "express";
 import bodyParser from "body-parser";
 import validator from "validator";
+import { appendFile } from "fs";
 
 const app = express();
 
@@ -45,6 +46,24 @@ app.post("/submit", (req, res) => {
   if (errorList.length) {
     res.send({ success: false, error: errorList });
   } else {
+    appendFile(
+      "customers.txt",
+      `${JSON.stringify(
+        {
+          name,
+          email,
+          phoneNumber,
+          houseNumber,
+          streetName,
+          city,
+          stateProvince,
+          country,
+        },
+        null,
+        2
+      )},\n`,
+      (error) => console.log({ error })
+    );
     res.send({ success: true });
   }
 });
