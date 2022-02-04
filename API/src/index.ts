@@ -61,7 +61,11 @@ app.post("/submit", (req, res) => {
         null,
         2
       )},\n`,
-      (error) => console.log({ error })
+      (error) => {
+        if (error) {
+          console.log({ error });
+        }
+      }
     );
     res.send({ success: true });
   }
