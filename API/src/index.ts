@@ -32,23 +32,21 @@ app.post("/submit", (req, res) => {
   } = req.body;
 
   const errorList = [
-    ...(validator.isEmpty(name) ? ["Name is empty!"] : []),
-    ...(!validator.isEmail(email) ? ["Email is not the right format!"] : []),
-    ...(validator.isEmpty(phoneNumber) ? ["Phone Number is empty!"] : []),
-    ...(!validator.isNumeric(houseNumber)
-      ? ["House Number can only be a number!"]
-      : []),
-    ...(validator.isEmpty(streetName) ? ["Street Name is empty!"] : []),
-    ...(validator.isEmpty(city) ? ["City is empty!"] : []),
-    ...(validator.isEmpty(stateProvince) ? ["State/Province is empty!"] : []),
-    ...(validator.isEmpty(country) ? ["Country is empty!"] : []),
+    ...(validator.isEmpty(name) ? ["Name"] : []),
+    ...(!validator.isEmail(email) ? ["Email"] : []),
+    ...(validator.isEmpty(phoneNumber) ? ["Phone Number"] : []),
+    ...(!validator.isNumeric(houseNumber) ? ["House Number"] : []),
+    ...(validator.isEmpty(streetName) ? ["Street Name"] : []),
+    ...(validator.isEmpty(city) ? ["City"] : []),
+    ...(validator.isEmpty(stateProvince) ? ["State/Province"] : []),
+    ...(validator.isEmpty(country) ? ["Country"] : []),
   ];
 
   if (errorList.length) {
-    res.status(400).send({ data: false, error: errorList });
+    res.send({ success: false, error: errorList });
+  } else {
+    res.send({ success: true });
   }
-
-  res.send(true);
 });
 
 // start the Express server

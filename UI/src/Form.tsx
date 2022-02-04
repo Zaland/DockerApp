@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { Axios } from "./Axios";
 import { CountryList, ProvinceList, StateList } from "./Data";
 
@@ -19,6 +20,8 @@ export const Form = () => {
   const [city, setCity] = useState("");
   const [stateProvince, setStateProvince] = useState("");
   const [country, setCountry] = useState("");
+
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setStateProvince("");
@@ -110,7 +113,7 @@ export const Form = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    await Axios.post("/submit", {
+    const response = await Axios.post("/submit", {
       name,
       email,
       phoneNumber,
@@ -119,19 +122,16 @@ export const Form = () => {
       city,
       country,
       stateProvince,
-    })
-      .then((response) => {
-        console.log("success", response);
-      })
-      .catch((error) => {
-        const { data, status } = error.response;
+    }).then((response) => response.data);
 
-        if (status === 400) {
-          console.log(data.error.join("\n"));
-        } else {
-          console.log("Something went wrong!");
-        }
-      });
+    if (response.success === true) {
+      enqueueSnackbar("Success.", { variant: "success" });
+    } else {
+      enqueueSnackbar(
+        `Failed. The field(s) ${response.error.join(", ")} are invalid.`,
+        { variant: "error" }
+      );
+    }
   };
 
   return (
@@ -248,14 +248,6 @@ export const Form = () => {
           </Grid>
         </form>
       </Box>
-      <Button
-        onClick={handleSubmit}
-        variant="contained"
-        fullWidth
-        sx={{ paddingTop: 2, paddingBottom: 2 }}
-      >
-        Alt Submit
-      </Button>
     </Grid>
   );
 };
