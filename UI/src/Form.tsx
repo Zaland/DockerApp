@@ -141,7 +141,7 @@ export const Form = () => {
       container
       justifyContent="center"
       alignItems="center"
-      sx={{ paddingTop: 10 }}
+      sx={{ paddingTop: 2 }}
     >
       <Box sx={{ width: 800 }}>
         <form onSubmit={handleSubmit}>
