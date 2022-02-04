@@ -6,6 +6,6 @@ EXPOSE 3001
 
 COPY package.json .
 RUN npm i
-COPY src .
+COPY . .
 
-CMD npm start
+CMD ["npm", "start"]

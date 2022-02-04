@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { Axios } from "./Axios";
+import axios from "axios";
 import { CountryList, ProvinceList, StateList } from "./Data";
 
 export const Form = () => {
@@ -113,16 +113,18 @@ export const Form = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const response = await Axios.post("/submit", {
-      name,
-      email,
-      phoneNumber,
-      houseNumber,
-      streetName,
-      city,
-      country,
-      stateProvince,
-    }).then((response) => response.data);
+    const response = await axios
+      .post("http://localhost:3000/submit", {
+        name,
+        email,
+        phoneNumber,
+        houseNumber,
+        streetName,
+        city,
+        country,
+        stateProvince,
+      })
+      .then((response) => response.data);
 
     if (response.success === true) {
       enqueueSnackbar("Success.", { variant: "success" });

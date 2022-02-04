@@ -1,4 +1,3 @@
-import "./config";
 import express from "express";
 import bodyParser from "body-parser";
 import validator from "validator";
@@ -69,6 +68,6 @@ app.post("/submit", (req, res) => {
 });
 
 // start the Express server
-app.listen(process.env.API_PORT, () => {
-  console.log(`server started at ${process.env.API_URL}`);
+app.listen(3000, () => {
+  console.log(`server started at http://localhost:3000`);
 });

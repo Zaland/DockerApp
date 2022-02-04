@@ -2,11 +2,15 @@ version: '3.8'
 services:
   lr_api:
     build: API/
+    ports:
+      - "3000:3000"
     volumes:
       - ./API/src:/home/node/src
       - ./API/build:/home/node/build
   lr_ui:
     build: UI/
+    ports:
+      - "3001:3001"
     volumes:
       - ./UI/src:/home/node/src
       - ./UI/build:/home/node/build
